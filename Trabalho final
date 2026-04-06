@@ -1,0 +1,333 @@
+
+def calculocusto(Valor_de_contrato,n_parcelar):
+    return n_parcelar*Valor_de_contrato/n_parcelar
+
+def calculocustomes(Valor_de_contrato,n_parcelar):
+    return Valor_de_contrato/n_parcelar
+
+
+def calculovalortotal(V_por_garagem, V_por_quarto):
+    return V_por_garagem + V_por_quarto
+
+def calculoaluguelcomdesconto(Aluguel,desconto):
+    return Aluguel* desconto
+
+
+
+
+"""
+Elaboração do programa simples até a letra f da atividade Final.ok
+"""
+
+import csv
+n_de_bedroom =0
+desconto = 1 
+txt_crianca = 'nâo se aplica'
+txt_desconto= 'não se Aplica'
+imovel = 'numm'
+Valor_de_contrato = 2000
+V_por_quarto = 0
+V_por_garagem = 0 
+valor_aluguel_mensal=0
+parcela_contrato=1
+
+List_corretores = [
+    {"nome": "Ricardo Mendes Oliveira", "tel": "(11) 91234-5678", "status": "Ativo"},
+    {"nome": "Mariana Silva Santos", "tel": "(21) 98765-4321", "status": "Ativo"},
+]
+
+while True:
+    
+    desconto = 1 #informar que o disconto é igual a 1 para não correr o risto de o disconto continuar em um segunda rodada de consulta.
+    n_de_bedroom =0
+    n_de_bedroom = 1
+    #resetando as informações para uma nova consulta 
+    print('******************************************************************')
+    print('Olá nós da empresa R.M iremos estar entendo sua realidade de hoje:')
+    Tipo_de_servico = input('''Serviços prestados: 
+                        
+(A) - Locação - (Elaboração de Orçamento)
+(B) - Lista de Corretores
+(C) - Controle Contratos
+(D) - Agendamentos de visitas
+(E) - Gerenciamento de clientes                          
+(F) - Cadastro de imóveis
+(G) - Sair do Sistema                         
+
+Digite a opção desejada: ''').upper()
+
+    if Tipo_de_servico == 'A' :
+
+    
+        parcelar =input(''' Valor do contrato imobiliário é de R$ 2.000,00 divididos em até 5 vezes, deseja parcelar?(S) Sim/(N) Não
+Digite a opção desejada:''').upper()
+
+        try: 
+            if parcelar == 'S':
+                while True:
+                    try:
+                        n_parcelar =int(input('''  até 5 vezes, deseja parcelar em quantas? '''))
+                        if 1 <= n_parcelar <= 5:
+                            break
+                        else:
+                            print('Por favor, escolha entre 1 e 5 parcelas.')
+                    except ValueError:
+                        print("Erro: Você deve digitar um número inteiro!")
+                        input("Pressione ENTER para tentar novamente...")            
+            
+            elif parcelar == 'N':
+                n_parcelar = 1
+                Valor_de_contrato = 2000
+        except ValueError:
+                print("Erro: Você deve digitar (S) Sim/(N) Não")
+                input("Pressione ENTER para tentar novamente...")
+
+        Tipo_de_servico1 = input('''
+                             
+A R.M trabalha com 3 tipos de locação e valores padrões:
+i) Apartamentos R$ 700,00 / 1 Quarto
+ii) Casas R$ 900,00 / 1 Quarto
+iii) Estudio R$ 1200,00 
+                             
+Locação de:                             
+           
+(C) - Casas
+(AP) - Apartamentos
+(ES) - Estúdios
+
+Digite a opção desejada: ''').upper()
+
+        if Tipo_de_servico1 == 'C': 
+            print(f'LOCAÇÃO DE CASAS')
+        #quantidade de Quartos 
+            imovel = 'Casa'
+            Aluguel = 900
+            n_de_bedroom = int(input('''
+Quantos quartos:'''))
+        
+            if n_de_bedroom >= 2:
+                print('Será acrescentado R$ 250,00 na mensalidade!')
+                V_por_quarto = 250
+            else:
+                print('Não haverá acrecido de R$ 250,00 na mensalidade!')
+                n_de_bedroom = 0
+                V_por_quarto = 0
+            #vaga de garagem 
+            vaga_de_garagem = int(input('''Vaga de garagem:'''))
+            if vaga_de_garagem >= 1:
+                print('Será acrescentado R$ 300,00 na mensalidade!')
+                V_por_garagem = 300
+            elif vaga_de_garagem <0:
+                print('Valor inexistente! ')
+            else:
+                V_por_garagem = 0
+                print('')
+        
+        elif Tipo_de_servico1 == 'AP': 
+            print(f'LOCAÇÃO DE APARTAMENTO')
+            #quantidade de Quartos
+            imovel = 'Apartamento' 
+            Aluguel = 700
+            Crianças =input('''A empresa R.M oferece um desconto de 5% (cinco por cento) no valor do aluguel
+de apartamentos para pessoas que não possuem crianças. Você possui criança abaixo dos 12 anos? (S) Sim/(N) Não:
+                            
+''').upper()
+            if Crianças == 'S':
+                desconto = 1
+                txt_desconto = 'Não se Aplica'
+                txt_crianca = 'Sim'
+            else:
+                desconto = 0.95
+                txt_desconto = 'Aplicar 5% no valor do alguel'
+                txt_crianca = 'Não'
+           
+            
+            n_de_bedroom = int(input('''Quantos quartos: '''))
+            
+            if n_de_bedroom >= 2:
+                print('Será acrescentado R$ 200,00 na mensalidade!')
+                V_por_quarto= 200
+            elif n_de_bedroom < 2:
+                print('Não haverá acrecimo!')
+                n_de_bedroom = 1
+                V_por_quarto= 0
+            #vaga de garagem 
+           
+            vaga_de_garagem = int(input('''Vagas de garagem:'''))
+            
+            
+            if vaga_de_garagem >= 1:
+                print('Será acrescentado R$ 300,00 na mensalidade!')
+                V_por_garagem =300
+            else:
+                print('Não haverá acrecimo !')
+                V_por_garagem =0
+
+
+        elif Tipo_de_servico1 == 'ES':
+            print(f'LOCAÇÃO DE ESTUDIO')
+            #quantidade de Quartos 
+            #vaga de garagem 
+            imovel = 'Estudio' 
+            Aluguel= 1200
+            vaga_de_garagem = int(input('''
+Número de Vagas de garagem:'''))
+            
+            n_de_bedroom = 1
+            V_por_quarto= 0
+                
+            if 1 < vaga_de_garagem <= 2:
+                V_por_garagem = 250
+                print(f'Será acrescentado R${V_por_garagem} na mensalidade, por {V_por_garagem} de garagem!')
+            
+            elif vaga_de_garagem > 2: 
+                V_por_garagem = (250) + ((vaga_de_garagem-2) *60)
+                print(f'**Será acrecido um valor de {(V_por_garagem)},sendo {2} vagas no valor por 250 + 60 por {(vaga_de_garagem-2)} adicional')       
+            
+            else:
+                print('Não haverá acrecimo !')
+                V_por_garagem = 0
+        else:
+            print('Esta opção Não existe!')
+        print('\n' + '='*60)
+        print('RESUMO DA PROPOSTA FINAL')
+        print('='*60)
+
+        print(('''A empresa R.M oferece um desconto de 5% (cinco por cento) no valor do aluguel de apartamentos para pessoas que não possuem crianças.
+
+         '''))
+        print((f'Imóvel: {imovel}'))
+        print((f'Valor do Aluguel: {Aluguel:.2f}'))
+        print((f'Desconto: {txt_desconto}'))
+        print((f'Crianças: {txt_crianca}'))
+        print((f'Contrato (Parcelado) {n_parcelar} x {(Valor_de_contrato/n_parcelar):.2f}'))
+        print((f'Número de garagem {vaga_de_garagem}, será acrescentado valor de: {V_por_garagem:.2f} na mensalidade'))
+        print((f'Número de quartos {n_de_bedroom}, será acrescentado valor de: {V_por_quarto:.2f} na mensalidade'))
+        print('\n' + '-'*60)      
+        print(('Total do Aluguel Sem Custo do contrato:'))
+        Valortotal = (Aluguel* desconto + V_por_garagem + V_por_quarto)
+        Aluguelcomdesconto = calculoaluguelcomdesconto(Aluguel,desconto)
+        Somados_incrementos = calculovalortotal(V_por_garagem, V_por_quarto)
+        print(f'(R$ {Aluguel:.2f} x {desconto} + R$ {V_por_garagem:.2f} + R$ {V_por_quarto:.2f}) = R$ {Valortotal:.2f})')
+        print(f'Valor do Aluguél sem incrementos: R$ {Aluguel:.2f}x{desconto} = R$ {Aluguelcomdesconto:.2f}')
+        print(f'Valor dos incrementos (quatos + garagem): (R$ {V_por_quarto:.2f} + R$ {V_por_garagem:.2f}) = R$ {Somados_incrementos:.2f}')
+        print(f'TOTAL NO PRIMEIRO MÊS: R$ {Somados_incrementos:.2f} + R$ {Aluguelcomdesconto:.2f} = R$ {Valortotal:.2f}')
+        print('\n' + '_'*60)
+        Custo= calculocusto(Valor_de_contrato,n_parcelar)
+        Custo_MES = calculocustomes(Valor_de_contrato,n_parcelar)
+        print((f'Contrato imobiliário: R$ {Custo:.2f}'))
+        print((f'Parcela do mês : R$ {Custo_MES:.2f}'))
+        print((f'Número de Parcelas : {n_parcelar}'))
+        print('\n' + '='*60)
+        print((f'Montante Final :({n_parcelar} x R$ {(Valor_de_contrato/n_parcelar):.2f}) + R$ {Valortotal:.2f} = R$ {Custo + Valortotal:.2f}'))
+
+        valor_aluguel_mensal = (Aluguel * desconto) + V_por_garagem + V_por_quarto
+        parcela_contrato = Valor_de_contrato / n_parcelar
+        
+        pergunta_csv = input("\nDeseja gerar o arquivo CSV com as 12 parcelas? (S) Sim/(N) Não: ").upper()
+        if pergunta_csv == 'S':
+            with open('orcamento_RM.csv', 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(["Mes", "Parcela Contrato", "Aluguel Mensal","Valor Quarto estra","Garagem Extra","Total Mensal"])
+                Aluguel = Aluguel*desconto
+                for i in range(1, 13):
+                    # A parcela do contrato só aparece até o número de vezes escolhido (n_parcelar)
+                    Valor_de_contrato = parcela_contrato if i <= n_parcelar else 0
+                    total_mes = Valor_de_contrato + Aluguel + V_por_quarto + V_por_garagem
+                    
+                    writer.writerow([f"Mes {i}", f"{Valor_de_contrato:.2f}", f"{Aluguel:.2f}", f"{V_por_quarto:.2f}", f"{V_por_garagem:.2f}", f"{(total_mes):.2f}"])
+            print(">>> Arquivo 'orcamento_RM.csv' gerado com sucesso!")
+
+    elif Tipo_de_servico == 'B' :
+        
+            Tipo_de_servico_corretor = input('''Corretores : 
+                        
+(A) - Consultar Lista (Status)
+(B) - Cadastrar Novo Corretor
+(C) - Alterar Status (Ativo/Inativo)
+(D) - Remover Corretor
+(M) - Voltar ao Menu Principal                                                          
+
+Digite a opção desejada: ''').upper()
+            if Tipo_de_servico_corretor == 'A':
+                print('\n' + '-'*65)
+                print(f"{'ID':<4} | {'Nome':<25} | {'Telefone':<15} | {'Status'}")
+                print('-'*65)
+                for i, c in enumerate(List_corretores, start=1):
+                    print(f"{i:<4} | {c['nome']:<25} | {c['tel']:<15} | {c.get('status', 'Ativo')}")
+                print('-'*65)
+                input("\nPressione ENTER para voltar...")
+
+            # --- B: CADASTRAR ---
+            elif Tipo_de_servico_corretor == 'B':
+                novo_nome = input("Nome do Corretor: ")
+                novo_tel = input("Telefone: ")
+                # Adiciona o novo dicionário à lista
+                List_corretores.append({"nome": novo_nome, "tel": novo_tel, "status": "Ativo"})
+                print(f"\nCorretor {novo_nome} cadastrado com sucesso!")
+                input("Pressione ENTER para continuar...")
+
+            # --- C: ALTERAR STATUS ---
+            elif Tipo_de_servico_corretor == 'C':
+                print("\nAlterar Status de Corretor:")
+                for i, c in enumerate(List_corretores, start=1):
+                    print(f"{i} - {c['nome']} ({c['status']})")
+            
+                try:
+                    escolha = int(input("\nDigite o ID do corretor: ")) - 1
+                    if 0 <= escolha < len(List_corretores):
+                        novo_status = input("Digite o novo status (A para Ativo / I para Inativo): ").upper()
+                        List_corretores[escolha]['status'] = "Ativo" if novo_status == 'A' else "Inativo"
+                        print(f"Status de {List_corretores[escolha]['nome']} atualizado!")
+                    else:
+                        print("ID inválido.")
+                except ValueError:
+                    print("Por favor, digite um número válido.")
+                input("\nPressione ENTER para continuar...")
+
+                # --- D: REMOVER ---
+            elif Tipo_de_servico_corretor == 'D':
+                print("\nRemover Corretor:")
+                for i, c in enumerate(List_corretores, start=1):
+                    print(f"{i} - {c['nome']}")
+            
+                try:
+                    remover = int(input("\nDigite o ID do corretor para excluir: ")) - 1
+                    if 0 <= remover < len(List_corretores):
+                        excluido = List_corretores.pop(remover) # Remove da lista
+                        print(f"Corretor {excluido['nome']} removido com sucesso!")
+                    else:
+                        print("ID inválido.")
+                except ValueError:
+                    print("Entrada inválida.")
+                input("\nPressione ENTER para continuar...")
+    
+    elif Tipo_de_servico == 'C' :
+        print( 'Tarefa em elaboração!')
+
+    elif Tipo_de_servico == 'G' :
+        sair =input('''Tem certeza que quer sair do sistema (S) Sim/(N) Não? 
+:a''').upper()
+
+        if sair == 'S':
+            print('\n' + '-'*60)
+            print('Que legal tê-lo por aqui, ')
+            print('Até a próxima!')  
+            print('\n' + '='*60)
+            break
+        else:
+            
+            print('\n' + '*'*60)
+            print('Ok, retornando ao Sistema!') 
+            print('\n' + '_'*60)
+        
+
+    elif Tipo_de_servico == 'C' or Tipo_de_servico == 'D' or Tipo_de_servico == 'E' or Tipo_de_servico == 'F':
+        print(f'Função não Habilitada! Busque a empresa pra constratar esquete serviço ')    
+
+    else:
+        print('Está opção não existe!')
+
+
+
+
