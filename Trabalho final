@@ -228,7 +228,7 @@ Número de Vagas de garagem:'''))
         if pergunta_csv == 'S':
             with open('orcamento_RM.csv', 'w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(["Mes", "Parcela Contrato", "Aluguel Mensal","Valor Quarto estra","Garagem Extra","Total Mensal"])
+                writer.writerow(["Mes", "Parcela Contrato", "Aluguel Mensal","Valor Quarto extra","Garagem Extra","Total Mensal"])
                 Aluguel = Aluguel*desconto
                 for i in range(1, 13):
                     # A parcela do contrato só aparece até o número de vezes escolhido (n_parcelar)
@@ -323,7 +323,7 @@ Digite a opção desejada: ''').upper()
         
 
     elif Tipo_de_servico == 'C' or Tipo_de_servico == 'D' or Tipo_de_servico == 'E' or Tipo_de_servico == 'F':
-        print(f'Função não Habilitada! Busque a empresa pra constratar esquete serviço ')    
+        print(f'Função não Habilitada! Busque a empresa pra constratar este serviço ')    
 
     else:
         print('Está opção não existe!')
