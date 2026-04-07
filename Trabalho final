@@ -323,7 +323,7 @@ Digite a opção desejada: ''').upper()
         
 
     elif Tipo_de_servico == 'C' or Tipo_de_servico == 'D' or Tipo_de_servico == 'E' or Tipo_de_servico == 'F':
-        print(f'Função não Habilitada! Busque a empresa pra constratar este serviço ')    
+        print(f'Função não Habilitada! Busque a empresa para contratar este serviço ')    
 
     else:
         print('Está opção não existe!')
